@@ -16,6 +16,7 @@
 		9C381862269F3DCD009BE49B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C381861269F3DCD009BE49B /* NetworkManager.swift */; };
 		9C381868269F6899009BE49B /* ConfigurationModule in Frameworks */ = {isa = PBXBuildFile; productRef = 9C381867269F6899009BE49B /* ConfigurationModule */; };
 		9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C381869269F6A09009BE49B /* APIEndPoints.swift */; };
+		9CC32ECF269F6C2700C1A88A /* APIErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC32ECE269F6C2700C1A88A /* APIErrorCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		9C381861269F3DCD009BE49B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		9C381865269F6818009BE49B /* ConfigurationModule */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ConfigurationModule; path = ../ConfigurationModule; sourceTree = "<group>"; };
 		9C381869269F6A09009BE49B /* APIEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoints.swift; sourceTree = "<group>"; };
+		9CC32ECE269F6C2700C1A88A /* APIErrorCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIErrorCode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 			children = (
 				9C381861269F3DCD009BE49B /* NetworkManager.swift */,
 				9C381869269F6A09009BE49B /* APIEndPoints.swift */,
+				9CC32ECE269F6C2700C1A88A /* APIErrorCode.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				9C381862269F3DCD009BE49B /* NetworkManager.swift in Sources */,
 				9C3047F1269E9E29005C9EA2 /* ViewController.swift in Sources */,
 				9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */,
+				9CC32ECF269F6C2700C1A88A /* APIErrorCode.swift in Sources */,
 				9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
