@@ -12,6 +12,7 @@ enum NewsAPIError: Error {
     
     case newsAPIError(value: String)
     case statusCodeError(value: String)
+    case jsonDecodingError(value: String)
     case unknownError
     
     /// Print String Representation of Error Code
