@@ -22,6 +22,7 @@
 		9C87522826A2F609006DDA7D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522726A2F609006DDA7D /* TabBarController.swift */; };
 		9C87522A26A2F6A0006DDA7D /* SourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522926A2F6A0006DDA7D /* SourceViewController.swift */; };
 		9C87522C26A2F99A006DDA7D /* EverythingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522B26A2F99A006DDA7D /* EverythingViewController.swift */; };
+		9C87522E26A30064006DDA7D /* NewsFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522D26A30064006DDA7D /* NewsFeedView.swift */; };
 		9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		9C87522726A2F609006DDA7D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		9C87522926A2F6A0006DDA7D /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		9C87522B26A2F99A006DDA7D /* EverythingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingViewController.swift; sourceTree = "<group>"; };
+		9C87522D26A30064006DDA7D /* NewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedView.swift; sourceTree = "<group>"; };
 		9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -168,6 +170,7 @@
 		9C38185B269F2FDE009BE49B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9C87522D26A30064006DDA7D /* NewsFeedView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				9C87522426A2CA57006DDA7D /* Source.swift in Sources */,
 				9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */,
 				9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */,
+				9C87522E26A30064006DDA7D /* NewsFeedView.swift in Sources */,
 				9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */,
 				9C87522626A2CBF2006DDA7D /* Protocols.swift in Sources */,
 			);
