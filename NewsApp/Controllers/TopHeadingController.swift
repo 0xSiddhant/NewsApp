@@ -7,12 +7,14 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TopHeadingController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .red
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Top Heading"
         
         
         
