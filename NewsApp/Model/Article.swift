@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct ArticleModal: Decodable {
+struct ArticleModal: ModelProtocol {
+    var code: String?
     var status: String
     var totalResults: Int
     var articles: [Article]
@@ -25,6 +26,6 @@ struct Article: Decodable {
     
     struct Source: Decodable {
         var name: String
-        var id: String
+        var id: String?
     }
 }

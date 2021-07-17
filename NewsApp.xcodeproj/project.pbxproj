@@ -18,6 +18,7 @@
 		9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C381869269F6A09009BE49B /* APIEndPoints.swift */; };
 		9C87522226A2C958006DDA7D /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522126A2C958006DDA7D /* Article.swift */; };
 		9C87522426A2CA57006DDA7D /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522326A2CA57006DDA7D /* Source.swift */; };
+		9C87522626A2CBF2006DDA7D /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522526A2CBF2006DDA7D /* Protocols.swift */; };
 		9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		9C381869269F6A09009BE49B /* APIEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoints.swift; sourceTree = "<group>"; };
 		9C87522126A2C958006DDA7D /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		9C87522326A2CA57006DDA7D /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		9C87522526A2CBF2006DDA7D /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,6 +169,7 @@
 				9C381861269F3DCD009BE49B /* NetworkManager.swift */,
 				9C381869269F6A09009BE49B /* APIEndPoints.swift */,
 				9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */,
+				9C87522526A2CBF2006DDA7D /* Protocols.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */,
 				9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */,
 				9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */,
+				9C87522626A2CBF2006DDA7D /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -15,10 +15,11 @@ class NetworkManager {
     private init() { }
     static let sharedInstance = NetworkManager()
     
-    func fetchData(endPoint: APIEndPoint,
+    func fetchData<T: ModelProtocol>(endPoint: APIEndPoint,
                    params: [String: Any],
                    method: APIMethodsType,
-                   completion: @escaping ((Result<AnyObject, NewsAPIError>) -> Void)) {
+                   responseType: T.Type,
+                   completion: @escaping ((Result<T, NewsAPIError>) -> Void)) {
         
         let fullyQualifiedURL = NewsAppConfigurator.BASE_URL.rawValue + endPoint.rawValue
         
@@ -33,19 +34,24 @@ class NetworkManager {
                    method: APIMethod(method),
                    parameters: finalParam)
             .validate()
-            .responseJSON { [self] response in
+            .response{ [self] response in
                 switch getStatusCode(code: response.response?.statusCode) {
                 case .success(_) :
                     switch response.result {
                     case .success(let responseData):
-                        if let jsonDict = responseData as? [String: Any],
-                           let statusKey = jsonDict["status"] as? String,
-                           statusKey == "error",
-                           let errorCode = jsonDict["code"] as? String {
-                            completion(.failure(APIErrorCode(key: errorCode).getError))
-                            return
+                        guard let data = responseData else { return }
+                        do {
+                            let model = try JSONDecoder().decode(T.self, from: data)
+                            if model.status == "error",
+                               let errorCode = model.code {
+                                completion(.failure(APIErrorCode(key: errorCode).getError))
+                                return
+                            }
+                            completion(.success(model))
+                        } catch {
+                            debugPrint(error)
+                            completion(.failure(.unknownError))
                         }
-                        completion(.success(responseData as AnyObject))
                     case .failure(let error):
                         debugPrint(error)
                         break

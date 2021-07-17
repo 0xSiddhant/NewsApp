@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct SourceModel: Decodable {
+struct SourceModel: ModelProtocol {
+    var code: String?
     var status: String
     var sources: [Source]
 }
