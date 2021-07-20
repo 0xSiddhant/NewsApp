@@ -13,8 +13,8 @@ final class NewsFeedView: UITableViewCell {
     //MARK:- Properties
     static let IDENTIFIER = NewsFeedView.description()
     
-    lazy var imgView: UIImageView = {
-        let imgView = UIImageView()
+    lazy var imgView: LazyImageLoader = {
+        let imgView = LazyImageLoader()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleToFill
         return imgView
@@ -43,8 +43,8 @@ final class NewsFeedView: UITableViewCell {
     
     lazy var publishLabel: UILabel = {
         let pub = UILabel()
-        pub.textColor = .secondaryLabel
-        pub.font = UIFont.systemFont(ofSize: 15)
+        pub.textColor = .white
+        pub.font = UIFont.boldSystemFont(ofSize: 15)
         pub.translatesAutoresizingMaskIntoConstraints = false
         return pub
     }()
@@ -123,6 +123,16 @@ final class NewsFeedView: UITableViewCell {
         publishLabel.text = article.publishedAt
         imgView.backgroundColor = .systemTeal
         author.text = article.author
+        
+        guard let imgURL = article.urlToImage else {
+            imgView.image = nil
+            imgView.backgroundColor = .systemBlue
+            return
+        }
+        imgView.downloadImage(imageURL: imgURL)
+//        LazyImageLoader.sharedInstance.downloadImage(imageURL: imgURL) { [weak self] image in
+//            self?.imgView.image = image
+//        }
     }
 }
 
