@@ -42,6 +42,7 @@ class NetworkManager {
                         guard let data = responseData else { return }
                         do {
                             let model = try JSONDecoder().decode(T.self, from: data)
+//                            debugPrint(model)
                             if model.status == "error",
                                let errorCode = model.code {
                                 completion(.failure(APIErrorCode(key: errorCode).getError))

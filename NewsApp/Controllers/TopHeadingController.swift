@@ -67,6 +67,7 @@ extension TopHeadingController {
         }
         cell.selectionStyle = .none
         cell.populateCell(article: viewModel.getData(at: indexPath))
+        viewModel.canApplyPagination(indexPath.row)
         return cell
     }
     
