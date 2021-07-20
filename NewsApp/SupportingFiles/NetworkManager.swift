@@ -49,6 +49,7 @@ class NetworkManager {
                             }
                             completion(.success(model))
                         } catch {
+                            debugPrint(error)
                             completion(.failure(.jsonDecodingError(value: error.localizedDescription)))
                         }
                     case .failure(let error):

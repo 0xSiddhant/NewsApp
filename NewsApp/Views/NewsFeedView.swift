@@ -26,6 +26,7 @@ final class NewsFeedView: UITableViewCell {
         txtview.font = UIFont.boldSystemFont(ofSize: 18)
         txtview.adjustsFontForContentSizeCategory = true
         txtview.textColor = .label
+        txtview.numberOfLines = 2
         return txtview
     }()
     
@@ -53,6 +54,7 @@ final class NewsFeedView: UITableViewCell {
         author.font = UIFont.monospacedSystemFont(ofSize: 15, weight: .medium)
         author.translatesAutoresizingMaskIntoConstraints = false
         author.textColor = .tertiaryLabel
+        author.setContentHuggingPriority(.required, for: .vertical)
         return author
     }()
     
@@ -71,6 +73,7 @@ final class NewsFeedView: UITableViewCell {
         
         contentView.clipsToBounds = true
         contentView.layer.cornerRadius = 5
+
     }
     
     required init?(coder: NSCoder) {
@@ -97,8 +100,21 @@ final class NewsFeedView: UITableViewCell {
             
             author.topAnchor.constraint(equalTo: descLabel.bottomAnchor),
             author.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
-            author.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            author.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
+            
         ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8))
+        self.layer.shadowColor = UIColor.lightGray.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 2.0)
+        self.layer.shadowRadius = 2.0
+        self.layer.shadowOpacity = 0.5
+        self.layer.masksToBounds = false
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.contentView.layer.cornerRadius).cgPath
+        
     }
     
     func populateCell(article: Article) {
@@ -130,7 +146,7 @@ struct NewsFeed_Preview: PreviewProvider {
     static var previews: some View {
         VStack {
             NewsFeedRepresentable()
-                .frame(width: 310, height: 270)
+                .frame(width: 310, height: 300)
         }
             
     }
