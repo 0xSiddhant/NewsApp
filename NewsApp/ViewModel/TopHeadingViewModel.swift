@@ -9,6 +9,7 @@ import Foundation
 
 class TopHeadingViewModel {
     
+    //MARK:- Properties
     var reloadTableCallBack: (() -> Void)?
     
     private var model: ArticleModal! {
@@ -30,6 +31,14 @@ class TopHeadingViewModel {
         return model.articles[indexPath.row]
     }
     
+    func getSelectedNewsLink(of indexPath: IndexPath) -> URL? {
+        if let urlString =  model.articles[indexPath.row].url {
+            return URL(string: urlString)
+        }
+        return nil
+    }
+    
+    //MARK:- API Calls
     func fetchData() {
         NetworkManager.sharedInstance.fetchData(endPoint: .headlines,
                                                 params: ["country": "in"],

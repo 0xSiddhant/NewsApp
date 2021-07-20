@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class TopHeadingController: UITableViewController {
     
@@ -67,6 +68,19 @@ extension TopHeadingController {
         cell.selectionStyle = .none
         cell.populateCell(article: viewModel.getData(at: indexPath))
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let url = viewModel.getSelectedNewsLink(of: indexPath) else { return }
+        
+        let config = SFSafariViewController.Configuration()
+        config.barCollapsingEnabled = true
+        config.entersReaderIfAvailable = true
+        
+        present(SFSafariViewController(url: url,
+                                       configuration: config),
+                animated: true,
+                completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
