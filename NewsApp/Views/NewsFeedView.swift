@@ -130,9 +130,6 @@ final class NewsFeedView: UITableViewCell {
             return
         }
         imgView.downloadImage(imageURL: imgURL)
-//        LazyImageLoader.sharedInstance.downloadImage(imageURL: imgURL) { [weak self] image in
-//            self?.imgView.image = image
-//        }
     }
 }
 

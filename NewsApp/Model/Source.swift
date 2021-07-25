@@ -13,8 +13,9 @@ struct SourceModel: ModelProtocol {
     var sources: [Source]
 }
 
-struct Source: Decodable {
+struct Source: Decodable, Hashable {
     var id: String
+    var identifer = UUID()
     var name: String
     var description: String
     var url: String
@@ -22,4 +23,21 @@ struct Source: Decodable {
     var language: String
     var country: String
     
+    enum CodingKeys: CodingKey {
+        case id,
+             name,
+             description,
+             url,
+             category,
+             language,
+             country
+    }
+    
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(description)
+        hasher.combine(id)
+        hasher.combine(name)
+        
+    }
 }
