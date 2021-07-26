@@ -8,17 +8,29 @@
 import Foundation
 
 class SourceViewModel {
+    
     //MARK:- Properties
     var model: SourceModel!
     /// Used to Reload the TableView Content
     var reloadTableViewCallBack: (() -> Void)?
+    /// CallBack contains list of items which need to reload
+    var reloadCellsCallBack: (([Source]) -> Void)?
+    /// Return the URL of the Source website
+    var openBrowserCallBack: ((URL) -> Void)?
     /// Returns the list of available sources
     var getSourceList: [Source] {
         return model.sources
     }
     private(set) var previousSelectedIndex = -1
     
-    func selectedIndex(_ indx: Int) -> [Source] {
+    //MARK:- Methods
+    /// This function is use to manage the UI toggle
+    func selectedIndex(_ indx: Int) {
+        if indx == previousSelectedIndex {
+            previousSelectedIndex = -1
+            reloadCellsCallBack?([model.sources[indx]])
+            return
+        }
         var tempSourceList = [Source]()
         tempSourceList.append(model.sources[indx])
         if previousSelectedIndex != -1 &&
@@ -26,9 +38,15 @@ class SourceViewModel {
             tempSourceList.append(model.sources[previousSelectedIndex])
         }
         previousSelectedIndex = indx
-        return tempSourceList
+        reloadCellsCallBack?(tempSourceList)
     }
     
+    /// Returns the valid URL of the source if available else return nil
+    func getSelectedNewsLink(of indx: Int) -> URL? {
+        return URL(string: model.sources[indx].url)
+    }
+    
+    //MARK:- API Call
     func fetchAPI() {
         let params = [String: Any]()
         NetworkManager.sharedInstance.fetchData(endPoint: .sources,

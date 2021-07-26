@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SafariServices
 
 final class SourceViewController: UITableViewController {
 
@@ -36,6 +37,24 @@ final class SourceViewController: UITableViewController {
         viewModel.reloadTableViewCallBack = { [unowned self] in
             self.populateData()
         }
+        
+        viewModel.reloadCellsCallBack = { [unowned self] in
+            var snapShot = dataSource.snapshot()
+            snapShot.reloadItems($0)
+            dataSource.apply(snapShot,
+                             animatingDifferences: true)
+        }
+        
+        viewModel.openBrowserCallBack = { [unowned self] in
+            let config = SFSafariViewController.Configuration()
+            config.barCollapsingEnabled = true
+            config.entersReaderIfAvailable = false
+            
+            present(SFSafariViewController(url: $0,
+                                           configuration: config),
+                    animated: true,
+                    completion: nil)
+        }
     }
     
     func createDataSource() {
@@ -44,7 +63,9 @@ final class SourceViewController: UITableViewController {
                 return UITableViewCell()
             }
             cell.selectionStyle = .none
-            cell.title.textColor = indexPath.row == self.viewModel.previousSelectedIndex ? .systemRed : .systemTeal
+            cell.tag = indexPath.row
+            cell.viewModel = viewModel
+            cell.setUpStackView(addStackView: indexPath.row == self.viewModel.previousSelectedIndex)
             cell.populateData(source: source)
             return cell
         }
@@ -63,11 +84,8 @@ final class SourceViewController: UITableViewController {
                          completion: nil)
     }
     
+    //MARK:- TableView Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var snapShot = dataSource.snapshot()
-        snapShot.reloadItems(viewModel.selectedIndex(indexPath.row))
-        dataSource.apply(snapShot,
-                         animatingDifferences: true)
+        viewModel.selectedIndex(indexPath.row)
     }
-    
 }
