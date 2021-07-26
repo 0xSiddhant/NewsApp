@@ -14,7 +14,8 @@ struct ArticleModal: ModelProtocol {
     var articles: [Article]
 }
 
-struct Article: Decodable {
+struct Article: Decodable, Hashable {
+    var identifier = UUID()
     var source: Source
     var author: String?
     var title: String?
@@ -24,8 +25,25 @@ struct Article: Decodable {
     var publishedAt: String?
     var content: String?
     
-    struct Source: Decodable {
+    enum CodingKeys: CodingKey {
+        case source,
+             author,
+             title,
+             description,
+             url,
+             urlToImage,
+             publishedAt,
+             content
+    }
+    
+    struct Source: Decodable, Hashable {
         var name: String
         var id: String?
+        var identifier = UUID()
+        
+        enum CodingKeys: CodingKey {
+            case name,
+                 id
+        }
     }
 }
