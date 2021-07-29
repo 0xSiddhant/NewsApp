@@ -12,6 +12,9 @@
 		9C090B0026A6908F00E0E231 /* TopHeadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C090AFF26A6908F00E0E231 /* TopHeadingViewModel.swift */; };
 		9C090B0426A6E2F900E0E231 /* LazyImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C090B0326A6E2F900E0E231 /* LazyImageLoader.swift */; };
 		9C090B0626A6F81C00E0E231 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C090B0526A6F81C00E0E231 /* Constants.swift */; };
+		9C11464226B345EE009099D6 /* SettingPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C11464126B345EE009099D6 /* SettingPageController.swift */; };
+		9C11464626B35388009099D6 /* SettingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C11464526B35388009099D6 /* SettingItemView.swift */; };
+		9C11464826B35D1D009099D6 /* SettingItemHeaderview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C11464726B35D1D009099D6 /* SettingItemHeaderview.swift */; };
 		9C14E6EB26AEE0E9001E83FA /* EverythingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C14E6EA26AEE0E9001E83FA /* EverythingViewModel.swift */; };
 		9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3047EC269E9E29005C9EA2 /* AppDelegate.swift */; };
 		9C3047F1269E9E29005C9EA2 /* TopHeadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3047F0269E9E29005C9EA2 /* TopHeadingController.swift */; };
@@ -50,6 +53,9 @@
 		9C090AFF26A6908F00E0E231 /* TopHeadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopHeadingViewModel.swift; sourceTree = "<group>"; };
 		9C090B0326A6E2F900E0E231 /* LazyImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyImageLoader.swift; sourceTree = "<group>"; };
 		9C090B0526A6F81C00E0E231 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		9C11464126B345EE009099D6 /* SettingPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPageController.swift; sourceTree = "<group>"; };
+		9C11464526B35388009099D6 /* SettingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemView.swift; sourceTree = "<group>"; };
+		9C11464726B35D1D009099D6 /* SettingItemHeaderview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingItemHeaderview.swift; sourceTree = "<group>"; };
 		9C14E6EA26AEE0E9001E83FA /* EverythingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingViewModel.swift; sourceTree = "<group>"; };
 		9C3047E9269E9E29005C9EA2 /* NewsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C3047EC269E9E29005C9EA2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 				9C87522926A2F6A0006DDA7D /* SourceViewController.swift */,
 				9C87522726A2F609006DDA7D /* TabBarController.swift */,
 				9C3047F0269E9E29005C9EA2 /* TopHeadingController.swift */,
+				9C11464126B345EE009099D6 /* SettingPageController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -192,6 +199,8 @@
 				9C090B0326A6E2F900E0E231 /* LazyImageLoader.swift */,
 				9C87522D26A30064006DDA7D /* NewsFeedView.swift */,
 				9CEA649626AE14BD00D7481E /* SourceItemView.swift */,
+				9C11464526B35388009099D6 /* SettingItemView.swift */,
+				9C11464726B35D1D009099D6 /* SettingItemHeaderview.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -329,6 +338,7 @@
 				9C381862269F3DCD009BE49B /* NetworkManager.swift in Sources */,
 				9C3047F1269E9E29005C9EA2 /* TopHeadingController.swift in Sources */,
 				9C87522226A2C958006DDA7D /* Article.swift in Sources */,
+				9C11464226B345EE009099D6 /* SettingPageController.swift in Sources */,
 				9C87522826A2F609006DDA7D /* TabBarController.swift in Sources */,
 				9CEA649526AE0E1F00D7481E /* SourceViewModel.swift in Sources */,
 				9C090AFC26A68E4F00E0E231 /* Box.swift in Sources */,
@@ -338,9 +348,11 @@
 				9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */,
 				9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */,
 				9C090B0426A6E2F900E0E231 /* LazyImageLoader.swift in Sources */,
+				9C11464826B35D1D009099D6 /* SettingItemHeaderview.swift in Sources */,
 				9C090B0026A6908F00E0E231 /* TopHeadingViewModel.swift in Sources */,
 				9C87522E26A30064006DDA7D /* NewsFeedView.swift in Sources */,
 				9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */,
+				9C11464626B35388009099D6 /* SettingItemView.swift in Sources */,
 				9C090AFE26A68FA800E0E231 /* UserDefaultData.swift in Sources */,
 				9C87522626A2CBF2006DDA7D /* Protocols.swift in Sources */,
 			);

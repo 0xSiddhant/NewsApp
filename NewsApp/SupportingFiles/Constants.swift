@@ -41,7 +41,7 @@ enum Categories: String, CaseIterable {
     
 }
 
-enum Lanugages: String, CaseIterable, SettingModel {
+enum Languages: String, CaseIterable {
     case ar,
          de,
          en,
@@ -75,7 +75,7 @@ enum Lanugages: String, CaseIterable, SettingModel {
     }
 }
 
-enum Countries: String, CaseIterable, SettingModel {
+enum Countries: String, CaseIterable {
     case ae,
          ar,
          au,

@@ -51,7 +51,9 @@ class TopHeadingViewModel {
     //MARK:- API Calls
     func fetchData() {
         var params = [String: Any]()
-        params["country"] = "in"
+        if !UserDefaultsData.country.isEmpty {
+            params["country"] = UserDefaultsData.country
+        }
         params["pageSize"] = pageSize
         params["page"] = pageNo
         isAPICalled = true
@@ -69,7 +71,7 @@ class TopHeadingViewModel {
                 }
                 self.isAPICalled = false
             case .failure(let error):
-            debugPrint(error.showErrorMessage)
+                debugPrint(error.showErrorMessage)
             }
         }
     }
