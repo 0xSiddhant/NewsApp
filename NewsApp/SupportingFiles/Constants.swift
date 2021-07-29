@@ -19,4 +19,24 @@ enum Categories: String, CaseIterable {
     var title: String {
         return rawValue.capitalized
     }
+    
+    var imageName: String {
+        switch self {
+        case .business:
+            return "personalhotspot"
+        case .entertainment:
+            return "camera.metering.center.weighted"
+        case .science:
+            return "gyroscope"
+        case .sports:
+            return "gamecontroller.fill"
+        case .health:
+            return "heart.text.square.fill"
+        case .general:
+            return "text.bubble.fill"
+        case .technology:
+            return "network"
+        }
+    }
+    
 }

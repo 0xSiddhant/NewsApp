@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 
 final class SourceViewController: UITableViewController {
-
+    
     //MARK:- Properties
     lazy var viewModel: SourceViewModel = {
         return SourceViewModel()
@@ -18,9 +18,17 @@ final class SourceViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Sources"
+        
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem = .init(systemItem: .organize)
+            navigationItem.rightBarButtonItem!.menu = UIMenu(
+                title: "Categories",
+                options: .displayInline,
+                children: fetchCategoriesList())
+        }
         
         tableView.separatorStyle = .none
         tableView.rowHeight = UITableView.automaticDimension
@@ -55,6 +63,12 @@ final class SourceViewController: UITableViewController {
                     animated: true,
                     completion: nil)
         }
+        
+        viewModel.categoryType.bind { [unowned self] cat in
+            if cat != nil {
+                self.viewModel.fetchAPI()
+            }
+        }
     }
     
     func createDataSource() {
@@ -82,6 +96,28 @@ final class SourceViewController: UITableViewController {
         dataSource.apply(snapshot,
                          animatingDifferences: true,
                          completion: nil)
+    }
+    
+    private func fetchCategoriesList() -> [UIMenuElement] {
+        var elements = [UIMenuElement]()
+        
+        for category in Categories.allCases {
+            let item = UIAction(title: category.title,
+                                image: UIImage(systemName: category.imageName)
+            ) { [weak self] alert in
+                self?.viewModel.categoryType.value = category
+            }
+            elements.append(item)
+        }
+        let noneCase = UIAction(
+                    title: "All",
+                    image: UIImage(systemName: "pencil.and.outline")
+        ) { [weak self] _ in
+            self?.viewModel.categoryType.value = nil
+            self?.viewModel.fetchAPI()
+        }
+        elements.append(noneCase)
+        return elements
     }
     
     //MARK:- TableView Methods

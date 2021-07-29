@@ -23,6 +23,8 @@ class SourceViewModel {
     }
     private(set) var previousSelectedIndex = -1
     
+    var categoryType: Box<Categories?> = Box(nil)
+    
     //MARK:- Methods
     /// This function is use to manage the UI toggle
     func selectedIndex(_ indx: Int) {
@@ -48,7 +50,10 @@ class SourceViewModel {
     
     //MARK:- API Call
     func fetchAPI() {
-        let params = [String: Any]()
+        var params = [String: Any]()
+        if let cat = categoryType.value {
+            params["category"] = cat.rawValue
+        }
         NetworkManager.sharedInstance.fetchData(endPoint: .sources,
                                                 params: params,
                                                 method: .GET,
