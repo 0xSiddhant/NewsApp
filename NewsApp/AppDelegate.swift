@@ -18,6 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = TabBarController()
 //        window?.rootViewController = UINavigationController(rootViewController: ViewController())
         window?.makeKeyAndVisible()
+        
+        UIImageView.appearance().tintColor = .systemGreen
+        UIBarButtonItem.appearance().tintColor = .systemGreen
+        UITabBar.appearance().tintColor = .systemGreen
+        UIButton.appearance().tintColor = .systemGreen
+        
         return true
     }
     
