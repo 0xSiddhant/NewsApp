@@ -54,6 +54,12 @@ class SourceViewModel {
         if let cat = categoryType.value {
             params["category"] = cat.rawValue
         }
+        if !UserDefaultsData.country.isEmpty {
+            params["country"] = UserDefaultsData.country
+        }
+        if !UserDefaultsData.language.isEmpty {
+            params["language"] = UserDefaultsData.language
+        }
         NetworkManager.sharedInstance.fetchData(endPoint: .sources,
                                                 params: params,
                                                 method: .GET,

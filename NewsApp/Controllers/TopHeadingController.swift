@@ -22,6 +22,16 @@ class TopHeadingController: UITableViewController {
         return rc
     }()
     
+    lazy var settingBarBtn: UIBarButtonItem = {
+        let barBtn = UIBarButtonItem( image: UIImage(systemName: "filemenu.and.selection"),
+                                      style: .plain,
+                                      target: self,
+                                      action: #selector(showSettingPage))
+        barBtn.tintColor = .systemGreen
+        return barBtn
+    }()
+    
+    
     deinit {
         debugPrint(#file)
     }
@@ -32,6 +42,15 @@ class TopHeadingController: UITableViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Top Heading"
+        navigationItem.leftBarButtonItem = settingBarBtn
+        
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem = .init(systemItem: .organize)
+            navigationItem.rightBarButtonItem!.menu = UIMenu(
+                title: "Categories",
+                options: .displayInline,
+                children: fetchCategoriesList())
+        }
         
         tableView.separatorStyle = .none
         tableView.register(NewsFeedView.self, forCellReuseIdentifier: NewsFeedView.IDENTIFIER)
@@ -46,12 +65,54 @@ class TopHeadingController: UITableViewController {
             self.rc.endRefreshing()
             self.tableView.reloadData()
         }
+        
+        viewModel.categoryType.bind { [unowned self] cat in
+            if cat != nil {
+                self.viewModel.fetchData()
+            }
+        }
     }
     
-    //MARK: OBJC Methods
+    private func fetchCategoriesList() -> [UIMenuElement] {
+        var elements = [UIMenuElement]()
+        
+        for category in Categories.allCases {
+            let item = UIAction(title: category.title,
+                                image: UIImage(systemName: category.imageName)
+            ) { [weak self] alert in
+                self?.viewModel.categoryType.value = category
+            }
+            elements.append(item)
+        }
+        let noneCase = UIAction(
+            title: "All",
+            image: UIImage(systemName: "pencil.and.outline")
+        ) { [weak self] _ in
+            self?.viewModel.categoryType.value = nil
+            self?.viewModel.fetchData()
+        }
+        elements.append(noneCase)
+        return elements
+    }
+    
+    //MARK:- OBJC Methods
     @objc
     func refreshTableView() {
         viewModel.fetchData()
+    }
+    
+    @objc
+    func showSettingPage() {
+        let vc = SettingPageController()
+        vc.modalPresentationStyle = .overFullScreen
+        vc.modalTransitionStyle = .flipHorizontal
+        vc.selectionCallBack = { [weak self] in
+            self?.viewModel.fetchData()
+        }
+        present(vc,
+                animated: true,
+                completion: nil)
+        
     }
 }
 

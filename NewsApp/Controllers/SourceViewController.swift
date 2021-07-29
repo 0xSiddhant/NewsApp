@@ -15,7 +15,7 @@ final class SourceViewController: UITableViewController {
         return SourceViewModel()
     }()
     private var dataSource: UITableViewDiffableDataSource<Int, Source>!
-    
+    private var canReload = true
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -37,7 +37,13 @@ final class SourceViewController: UITableViewController {
         
         createDataSource()
         initializeViewModel()
-        viewModel.fetchAPI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if canReload {
+            viewModel.fetchAPI()
+        }
+        canReload = true
     }
     
     //MARK:- Configuration Methods
@@ -60,8 +66,10 @@ final class SourceViewController: UITableViewController {
             
             present(SFSafariViewController(url: $0,
                                            configuration: config),
-                    animated: true,
-                    completion: nil)
+                    animated: true
+            ) {
+                self.canReload = false
+            }
         }
         
         viewModel.categoryType.bind { [unowned self] cat in

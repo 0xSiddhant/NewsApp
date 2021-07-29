@@ -19,6 +19,7 @@ class TopHeadingViewModel {
             reloadTableCallBack?()
         }
     }
+    var categoryType: Box<Categories?> = Box(nil)
     
     var noOfRows: Int {
         if model == nil { return 0}
@@ -53,6 +54,11 @@ class TopHeadingViewModel {
         var params = [String: Any]()
         if !UserDefaultsData.country.isEmpty {
             params["country"] = UserDefaultsData.country
+        } else {
+            params["country"] = "in"
+        }
+        if let category = categoryType.value {
+            params["category"] = category.rawValue
         }
         params["pageSize"] = pageSize
         params["page"] = pageNo
