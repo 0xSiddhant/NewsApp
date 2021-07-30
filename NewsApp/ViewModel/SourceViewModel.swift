@@ -21,6 +21,8 @@ class SourceViewModel {
     var getSourceList: [Source] {
         return model.sources
     }
+    var sourceIDCallBack: ((String, String) -> Void)?
+    
     private(set) var previousSelectedIndex = -1
     
     var categoryType: Box<Categories?> = Box(nil)
@@ -46,6 +48,14 @@ class SourceViewModel {
     /// Returns the valid URL of the source if available else return nil
     func getSelectedNewsLink(of indx: Int) -> URL? {
         return URL(string: model.sources[indx].url)
+    }
+    
+    func setSourceID(of indx: Int) {
+        if let lang = Languages.init(rawValue: model.sources[indx].language) {
+            UserDefaultsData.language = lang.rawValue
+        }
+        sourceIDCallBack?(model.sources[indx].id,
+                          model.sources[indx].name)
     }
     
     //MARK:- API Call

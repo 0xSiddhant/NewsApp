@@ -77,6 +77,13 @@ final class SourceViewController: UITableViewController {
                 self.viewModel.fetchAPI()
             }
         }
+        
+        viewModel.sourceIDCallBack = { [unowned self] in
+            guard let vc = self.tabBarController?.viewControllers?.first?.children.first as? EverythingViewController else { return }
+            vc.sourceID = $0
+            vc.sourceName = $1
+            self.tabBarController?.selectedIndex = 0
+        }
     }
     
     func createDataSource() {
@@ -118,8 +125,8 @@ final class SourceViewController: UITableViewController {
             elements.append(item)
         }
         let noneCase = UIAction(
-                    title: "All",
-                    image: UIImage(systemName: "pencil.and.outline")
+            title: "All",
+            image: UIImage(systemName: "pencil.and.outline")
         ) { [weak self] _ in
             self?.viewModel.categoryType.value = nil
             self?.viewModel.fetchAPI()

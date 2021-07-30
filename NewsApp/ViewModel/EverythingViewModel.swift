@@ -19,15 +19,20 @@ class EverythingViewModel {
             fetchData()
         }
     }
+    var source: String?
     private var model: ArticleModal! {
         didSet {
             reloadTableCallBack?()
         }
     }
     var getArticleList: [Article] {
+        if model == nil { return [] }
         return model.articles
     }
     
+    func clearData() {
+        model = nil
+    }
     func canApplyPagination(_ index: Int) {
         if index == model.articles.count - 1 &&
             model.articles.count < model.totalResults &&
@@ -46,6 +51,10 @@ class EverythingViewModel {
         }
         params["pageSize"] = 20
         params["page"] = pageNo
+        if let src = source {
+            params["sources"] = src
+        }
+        
         isAPICalled = true
         NetworkManager.sharedInstance.fetchData(endPoint: .everything,
                                                 params: params,

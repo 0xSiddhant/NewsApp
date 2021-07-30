@@ -167,8 +167,7 @@ class SourceItemView: UITableViewCell {
     
     @objc
     func searchBtnClicked() {
-        //TODO:- Search Btn Click functionality need to be added
-        debugPrint(#function)
+        viewModel.setSourceID(of: tag)
     }
 }
 

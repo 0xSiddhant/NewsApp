@@ -9,7 +9,7 @@ import UIKit
 import SafariServices
 
 final class EverythingViewController: UITableViewController {
-    
+    //MARK:- Properties
     lazy var seachController: UISearchController = {
         let sc = UISearchController()
         sc.searchBar.delegate = self
@@ -19,13 +19,15 @@ final class EverythingViewController: UITableViewController {
         return EverythingViewModel()
     }()
     private var dataSource: UITableViewDiffableDataSource<Int, Article>!
+    var sourceID: String?
+    var sourceName: String?
     
+    //MARK:- View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.searchController = seachController
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Explore News"
         
         if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItem = .init(systemItem: .action)
@@ -40,6 +42,23 @@ final class EverythingViewController: UITableViewController {
         
         initializeViewModel()
         createDataSource()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.source = sourceID
+        if sourceID != nil {
+            viewModel.clearData()
+            seachController.searchBar.becomeFirstResponder()
+            navigationItem.title = sourceName ?? ""
+        } else {
+            navigationItem.title = "Explore News"
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        viewModel.source = nil
+        sourceID = nil
     }
     
     //MARK:- Configuration Methods
@@ -95,6 +114,7 @@ final class EverythingViewController: UITableViewController {
         return elements
     }
     
+    //MARK:- TableView Delegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let snapshot = dataSource.snapshot()
         
