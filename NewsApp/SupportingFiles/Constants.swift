@@ -41,6 +41,17 @@ enum Categories: String, CaseIterable {
     
 }
 
+enum SortByList: String, CaseIterable {
+    case relevancy,
+         popularity,
+         publishedAt
+         
+    var title: String {
+        return rawValue.capitalized
+    }
+}
+
+
 enum Languages: String, CaseIterable {
     case ar,
          de,

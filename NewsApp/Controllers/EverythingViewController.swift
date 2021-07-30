@@ -27,6 +27,14 @@ final class EverythingViewController: UITableViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Explore News"
         
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem = .init(systemItem: .action)
+            navigationItem.rightBarButtonItem!.menu = UIMenu(
+                title: "Sort By",
+                options: .destructive,
+                children: fetchCategoriesList())
+        }
+        
         tableView.register(NewsFeedView.self, forCellReuseIdentifier: NewsFeedView.IDENTIFIER)
         tableView.separatorStyle = .none
         
@@ -40,7 +48,14 @@ final class EverythingViewController: UITableViewController {
             self.seachController.dismiss(animated: true, completion: nil)
             self.populateData()
         }
+        viewModel.sortType.bind { [unowned self] _ in
+            if let query = self.viewModel.searchTerm,
+               !query.isEmpty {
+                self.viewModel.fetchData()
+            }
+        }
     }
+    
     func createDataSource() {
         dataSource = UITableViewDiffableDataSource<Int, Article>(tableView: tableView) { tv, indexPath, article in
             guard let cell = tv.dequeueReusableCell(withIdentifier: NewsFeedView.IDENTIFIER, for: indexPath) as? NewsFeedView else {
@@ -48,6 +63,7 @@ final class EverythingViewController: UITableViewController {
             }
             cell.selectionStyle = .none
             cell.populateCell(article: article)
+            self.viewModel.canApplyPagination(indexPath.row)
             return cell
         }
         tableView.dataSource = dataSource
@@ -64,6 +80,19 @@ final class EverythingViewController: UITableViewController {
         dataSource.apply(snapshot,
                          animatingDifferences: true,
                          completion: nil)
+    }
+    
+    private func fetchCategoriesList() -> [UIMenuElement] {
+        var elements = [UIMenuElement]()
+        
+        for sortItem in SortByList.allCases {
+            let item = UIAction(title: sortItem.title
+            ) { [weak self] alert in
+                self?.viewModel.sortType.value = sortItem
+            }
+            elements.append(item)
+        }
+        return elements
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
