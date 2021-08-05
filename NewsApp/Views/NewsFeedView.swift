@@ -121,12 +121,12 @@ final class NewsFeedView: UITableViewCell {
         title.text = article.title
         descLabel.text = article.description
         publishLabel.text = article.publishedAt
-        imgView.backgroundColor = .systemTeal
+        imgView.backgroundColor = .systemGreen
         author.text = article.author
         
         guard let imgURL = article.urlToImage else {
             imgView.image = nil
-            imgView.backgroundColor = .systemBlue
+            imgView.tintColor = .systemGreen
             return
         }
         imgView.downloadImage(imageURL: imgURL)
