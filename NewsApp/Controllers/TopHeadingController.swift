@@ -11,7 +11,7 @@ import SafariServices
 class TopHeadingController: UITableViewController {
     
     lazy var viewModel: TopHeadingViewModel = {
-        let vm = TopHeadingViewModel()
+        let vm = TopHeadingViewModel(controller: self)
         return vm
     }()
     

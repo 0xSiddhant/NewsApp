@@ -5,7 +5,7 @@
 //  Created by Siddhant Kumar on 26/07/21.
 //
 
-import Foundation
+import UIKit
 
 class EverythingViewModel {
     
@@ -28,6 +28,11 @@ class EverythingViewModel {
     var getArticleList: [Article] {
         if model == nil { return [] }
         return model.articles
+    }
+    
+    weak var controller: UIViewController?
+    init(controller: UIViewController) {
+        self.controller = controller
     }
     
     func clearData() {
@@ -59,7 +64,8 @@ class EverythingViewModel {
         NetworkManager.sharedInstance.fetchData(endPoint: .everything,
                                                 params: params,
                                                 method: .GET,
-                                                responseType: ArticleModal.self
+                                                responseType: ArticleModal.self,
+                                                controller: controller
         ) { response in
             switch response {
             case .success(let data):

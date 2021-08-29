@@ -16,7 +16,7 @@ final class EverythingViewController: UITableViewController {
         return sc
     }()
     lazy var viewModel: EverythingViewModel = {
-        return EverythingViewModel()
+        return EverythingViewModel(controller: self)
     }()
     private var dataSource: UITableViewDiffableDataSource<Int, Article>!
     var sourceID: String?

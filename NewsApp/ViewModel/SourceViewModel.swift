@@ -5,7 +5,7 @@
 //  Created by Siddhant Kumar on 26/07/21.
 //
 
-import Foundation
+import UIKit
 
 class SourceViewModel {
     
@@ -22,10 +22,14 @@ class SourceViewModel {
         return model.sources
     }
     var sourceIDCallBack: ((String, String) -> Void)?
-    
     private(set) var previousSelectedIndex = -1
     
     var categoryType: Box<Categories?> = Box(nil)
+    
+    weak var controller: UIViewController?
+    init(controller: UIViewController) {
+        self.controller = controller
+    }
     
     //MARK:- Methods
     /// This function is use to manage the UI toggle
@@ -73,7 +77,8 @@ class SourceViewModel {
         NetworkManager.sharedInstance.fetchData(endPoint: .sources,
                                                 params: params,
                                                 method: .GET,
-                                                responseType: SourceModel.self
+                                                responseType: SourceModel.self,
+                                                controller: controller
         ) { response in
             switch response {
             case .success(let data):

@@ -12,7 +12,7 @@ final class SourceViewController: UITableViewController {
     
     //MARK:- Properties
     lazy var viewModel: SourceViewModel = {
-        return SourceViewModel()
+        return SourceViewModel(controller: self)
     }()
     private var dataSource: UITableViewDiffableDataSource<Int, Source>!
     private var canReload = true

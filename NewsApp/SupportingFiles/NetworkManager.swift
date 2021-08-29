@@ -5,8 +5,8 @@
 //  Created by Siddhant Kumar on 14/07/21.
 //
 
-import Foundation
 import Alamofire
+import UIKit
 import ConfigurationModule
 
 
@@ -15,10 +15,18 @@ class NetworkManager {
     private init() { }
     static let sharedInstance = NetworkManager()
     
+    private lazy var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.color = .systemGreen
+        return activityIndicator
+    }()
+    
     func fetchData<T: ModelProtocol>(endPoint: APIEndPoint,
                    params: [String: Any],
                    method: APIMethodsType,
                    responseType: T.Type,
+                   controller: UIViewController?,
                    completion: @escaping ((Result<T, NewsAPIError>) -> Void)) {
         
         let fullyQualifiedURL = NewsAppConfigurator.BASE_URL.rawValue + endPoint.rawValue
@@ -30,11 +38,14 @@ class NetworkManager {
         debugPrint(fullyQualifiedURL)
         debugPrint(finalParam)
         
+        toggleLoaderView(true, controller: controller)
+        
         AF.request(fullyQualifiedURL,
                    method: APIMethod(method),
                    parameters: finalParam)
             .validate()
             .response{ [self] response in
+                toggleLoaderView(false, controller: controller)
                 switch getStatusCode(code: response.response?.statusCode) {
                 case .success(_) :
                     switch response.result {
@@ -70,6 +81,22 @@ class NetworkManager {
             }
     }
     
+    private func toggleLoaderView(_ show: Bool, controller: UIViewController?) {
+        guard let controller = controller else {
+            return
+        }
+        controller.view.isUserInteractionEnabled = !show
+        if show {
+            controller.view.addSubview(activityIndicator)
+            controller.view.bringSubviewToFront(activityIndicator)
+            activityIndicator.centerXAnchor.constraint(equalTo: controller.view.centerXAnchor).isActive = true
+            activityIndicator.centerYAnchor.constraint(equalTo: controller.view.centerYAnchor).isActive = true
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+    }
 }
 
 //MARK:- Enum Lists

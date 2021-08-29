@@ -5,7 +5,7 @@
 //  Created by Siddhant Kumar on 20/07/21.
 //
 
-import Foundation
+import UIKit
 
 class TopHeadingViewModel {
     
@@ -24,6 +24,11 @@ class TopHeadingViewModel {
     var noOfRows: Int {
         if model == nil { return 0}
         return model.articles.count
+    }
+    
+    weak var controller: UIViewController?
+    init(controller: UIViewController) {
+        self.controller = controller
     }
     
     deinit {
@@ -66,7 +71,8 @@ class TopHeadingViewModel {
         NetworkManager.sharedInstance.fetchData(endPoint: .headlines,
                                                 params: params,
                                                 method: .GET,
-                                                responseType: ArticleModal.self
+                                                responseType: ArticleModal.self,
+                                                controller: controller
         ) { response in
             switch response {
             case .success(let data):
