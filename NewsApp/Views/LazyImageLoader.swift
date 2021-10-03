@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Lazy Image Loading Class
 class LazyImageLoader: UIImageView {
 
     var urlString: String?

@@ -13,8 +13,8 @@ final class NewsFeedView: UITableViewCell {
     //MARK:- Properties
     static let IDENTIFIER = NewsFeedView.description()
     
-    lazy var imgView: LazyImageLoader = {
-        let imgView = LazyImageLoader()
+    lazy var imgView: UIImageView = {
+        let imgView = UIImageView()
         imgView.translatesAutoresizingMaskIntoConstraints = false
         imgView.contentMode = .scaleToFill
         return imgView
@@ -121,15 +121,16 @@ final class NewsFeedView: UITableViewCell {
         title.text = article.title
         descLabel.text = article.description
         publishLabel.text = article.publishedAt
-        imgView.backgroundColor = .systemGreen
+        imgView.tintColor = .systemGreen
         author.text = article.author
         
-        guard let imgURL = article.urlToImage else {
-            imgView.image = nil
-            imgView.tintColor = .systemGreen
-            return
-        }
-        imgView.downloadImage(imageURL: imgURL)
+        imgView.setImage(with: article.urlToImage)
+//        guard let imgURL = article.urlToImage else {
+//            imgView.image = nil
+//            imgView.tintColor = .systemGreen
+//            return
+//        }
+//        imgView.downloadImage(imageURL: imgURL)
     }
 }
 
