@@ -79,6 +79,7 @@
 		9C87522926A2F6A0006DDA7D /* SourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewController.swift; sourceTree = "<group>"; };
 		9C87522B26A2F99A006DDA7D /* EverythingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EverythingViewController.swift; sourceTree = "<group>"; };
 		9C87522D26A30064006DDA7D /* NewsFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedView.swift; sourceTree = "<group>"; };
+		9C8E643B27662AFD006C9908 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9CC32ECE269F6C2700C1A88A /* NewsAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsAPIError.swift; sourceTree = "<group>"; };
 		9CEA649426AE0E1F00D7481E /* SourceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceViewModel.swift; sourceTree = "<group>"; };
 		9CEA649626AE14BD00D7481E /* SourceItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceItemView.swift; sourceTree = "<group>"; };
@@ -108,6 +109,7 @@
 		9C3047E0269E9E29005C9EA2 = {
 			isa = PBXGroup;
 			children = (
+				9C8E643B27662AFD006C9908 /* README.md */,
 				9C381865269F6818009BE49B /* ConfigurationModule */,
 				9C3047EB269E9E29005C9EA2 /* NewsApp */,
 				9C304802269E9E2B005C9EA2 /* NewsAppTests */,
@@ -519,6 +521,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2A7GLY3DP4;
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -538,6 +541,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 2A7GLY3DP4;
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
