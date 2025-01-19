@@ -7,7 +7,6 @@
 
 import Alamofire
 import UIKit
-import ConfigurationModule
 
 
 class NetworkManager {
@@ -25,27 +24,42 @@ class NetworkManager {
     func fetchData<T: ModelProtocol>(endPoint: APIEndPoint,
                    params: [String: Any],
                    method: APIMethodsType,
+                   responseType: T.Type
+    ) async throws -> T {
+        try await withCheckedThrowingContinuation { continuation in
+            fetchData(endPoint: endPoint, params: params, method: method, responseType: T.self) { result in
+                switch result {
+                case .success(let success):
+                    continuation.resume(returning: success)
+                case .failure(let failure):
+                    continuation.resume(throwing: failure)
+                }
+            }
+            
+        }
+    }
+    
+    func fetchData<T: ModelProtocol>(endPoint: APIEndPoint,
+                   params: [String: Any],
+                   method: APIMethodsType,
                    responseType: T.Type,
-                   controller: UIViewController?,
                    completion: @escaping ((Result<T, NewsAPIError>) -> Void)) {
         
-        let fullyQualifiedURL = NewsAppConfigurator.BASE_URL.rawValue + endPoint.rawValue
+        let fullyQualifiedURL = "https://newsapi.org" + endPoint.rawValue
         
         var finalParam = [String: Any]()
         finalParam = params
-        finalParam["apiKey"] = NewsAppConfigurator.APIKey.rawValue
+        finalParam["apiKey"] = "___ API KEY ___"
         
         debugPrint(fullyQualifiedURL)
         debugPrint(finalParam)
         
-        toggleLoaderView(true, controller: controller)
         
         AF.request(fullyQualifiedURL,
                    method: APIMethod(method),
                    parameters: finalParam)
             .validate()
             .response{ [self] response in
-                toggleLoaderView(false, controller: controller)
                 switch getStatusCode(code: response.response?.statusCode) {
                 case .success(_) :
                     switch response.result {
@@ -53,7 +67,7 @@ class NetworkManager {
                         guard let data = responseData else { return }
                         do {
                             let model = try JSONDecoder().decode(T.self, from: data)
-//                            debugPrint(model)
+                            debugPrint(model)
                             if model.status == "error",
                                let errorCode = model.code {
                                 completion(.failure(APIErrorCode(key: errorCode).getError))
@@ -81,7 +95,7 @@ class NetworkManager {
             }
     }
     
-    private func toggleLoaderView(_ show: Bool, controller: UIViewController?) {
+    @MainActor func toggleLoaderView(_ show: Bool, controller: UIViewController?) {
         guard let controller = controller else {
             return
         }

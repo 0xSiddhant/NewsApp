@@ -13,6 +13,9 @@ struct UserDefaultsData {
     @UserDefault("country", defaultValue: "")
     static var country: String
     
+    @UserDefault("sourceNeedUpdate", defaultValue: true)
+    static var isSourceUpdateNeeded: Bool
+    
     @propertyWrapper
     struct UserDefault<T> {
         let key: String

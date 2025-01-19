@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -20,11 +20,10 @@
 		9C3047F1269E9E29005C9EA2 /* TopHeadingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C3047F0269E9E29005C9EA2 /* TopHeadingController.swift */; };
 		9C3047F6269E9E2B005C9EA2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9C3047F5269E9E2B005C9EA2 /* Assets.xcassets */; };
 		9C3047F9269E9E2B005C9EA2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9C3047F7269E9E2B005C9EA2 /* LaunchScreen.storyboard */; };
-		9C304804269E9E2B005C9EA2 /* WeatherAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C304803269E9E2B005C9EA2 /* WeatherAppTests.swift */; };
 		9C381860269F3C62009BE49B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9C38185F269F3C62009BE49B /* Alamofire */; };
 		9C381862269F3DCD009BE49B /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C381861269F3DCD009BE49B /* NetworkManager.swift */; };
-		9C381868269F6899009BE49B /* ConfigurationModule in Frameworks */ = {isa = PBXBuildFile; productRef = 9C381867269F6899009BE49B /* ConfigurationModule */; };
 		9C38186A269F6A09009BE49B /* APIEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C381869269F6A09009BE49B /* APIEndPoints.swift */; };
+		9C4283682D3D3B0A0080ACAF /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4283672D3D3B0A0080ACAF /* SpeechRecognizer.swift */; };
 		9C4D4FD12709999600D97BE8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9C4D4FD02709999600D97BE8 /* Kingfisher */; };
 		9C4D4FD3270999FA00D97BE8 /* UIImageView_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C4D4FD2270999FA00D97BE8 /* UIImageView_Extension.swift */; };
 		9C87522226A2C958006DDA7D /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C87522126A2C958006DDA7D /* Article.swift */; };
@@ -38,16 +37,6 @@
 		9CEA649526AE0E1F00D7481E /* SourceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA649426AE0E1F00D7481E /* SourceViewModel.swift */; };
 		9CEA649726AE14BD00D7481E /* SourceItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CEA649626AE14BD00D7481E /* SourceItemView.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		9C304800269E9E2B005C9EA2 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9C3047E1269E9E29005C9EA2 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 9C3047E8269E9E29005C9EA2;
-			remoteInfo = WeatherApp;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9C090AFB26A68E4F00E0E231 /* Box.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Box.swift; sourceTree = "<group>"; };
@@ -65,12 +54,9 @@
 		9C3047F5269E9E2B005C9EA2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9C3047F8269E9E2B005C9EA2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9C3047FA269E9E2B005C9EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9C3047FF269E9E2B005C9EA2 /* NewsAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9C304803269E9E2B005C9EA2 /* WeatherAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppTests.swift; sourceTree = "<group>"; };
-		9C304805269E9E2B005C9EA2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9C381861269F3DCD009BE49B /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		9C381865269F6818009BE49B /* ConfigurationModule */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ConfigurationModule; path = ../ConfigurationModule; sourceTree = "<group>"; };
 		9C381869269F6A09009BE49B /* APIEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoints.swift; sourceTree = "<group>"; };
+		9C4283672D3D3B0A0080ACAF /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 		9C4D4FD2270999FA00D97BE8 /* UIImageView_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView_Extension.swift; sourceTree = "<group>"; };
 		9C87522126A2C958006DDA7D /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		9C87522326A2CA57006DDA7D /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
@@ -92,14 +78,6 @@
 			files = (
 				9C4D4FD12709999600D97BE8 /* Kingfisher in Frameworks */,
 				9C381860269F3C62009BE49B /* Alamofire in Frameworks */,
-				9C381868269F6899009BE49B /* ConfigurationModule in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9C3047FC269E9E2B005C9EA2 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,9 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				9C8E643B27662AFD006C9908 /* README.md */,
-				9C381865269F6818009BE49B /* ConfigurationModule */,
 				9C3047EB269E9E29005C9EA2 /* NewsApp */,
-				9C304802269E9E2B005C9EA2 /* NewsAppTests */,
 				9C3047EA269E9E29005C9EA2 /* Products */,
 				9C381866269F6899009BE49B /* Frameworks */,
 			);
@@ -122,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				9C3047E9269E9E29005C9EA2 /* NewsApp.app */,
-				9C3047FF269E9E2B005C9EA2 /* NewsAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -141,15 +116,6 @@
 				9C38185B269F2FDE009BE49B /* Views */,
 			);
 			path = NewsApp;
-			sourceTree = "<group>";
-		};
-		9C304802269E9E2B005C9EA2 /* NewsAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				9C304803269E9E2B005C9EA2 /* WeatherAppTests.swift */,
-				9C304805269E9E2B005C9EA2 /* Info.plist */,
-			);
-			path = NewsAppTests;
 			sourceTree = "<group>";
 		};
 		9C381856269F2F83009BE49B /* Extensions */ = {
@@ -222,6 +188,7 @@
 				9C090AFB26A68E4F00E0E231 /* Box.swift */,
 				9C090AFD26A68FA800E0E231 /* UserDefaultData.swift */,
 				9C090B0526A6F81C00E0E231 /* Constants.swift */,
+				9C4283672D3D3B0A0080ACAF /* SpeechRecognizer.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -251,30 +218,11 @@
 			name = NewsApp;
 			packageProductDependencies = (
 				9C38185F269F3C62009BE49B /* Alamofire */,
-				9C381867269F6899009BE49B /* ConfigurationModule */,
 				9C4D4FD02709999600D97BE8 /* Kingfisher */,
 			);
 			productName = WeatherApp;
 			productReference = 9C3047E9269E9E29005C9EA2 /* NewsApp.app */;
 			productType = "com.apple.product-type.application";
-		};
-		9C3047FE269E9E2B005C9EA2 /* NewsAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 9C304816269E9E2B005C9EA2 /* Build configuration list for PBXNativeTarget "NewsAppTests" */;
-			buildPhases = (
-				9C3047FB269E9E2B005C9EA2 /* Sources */,
-				9C3047FC269E9E2B005C9EA2 /* Frameworks */,
-				9C3047FD269E9E2B005C9EA2 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				9C304801269E9E2B005C9EA2 /* PBXTargetDependency */,
-			);
-			name = NewsAppTests;
-			productName = WeatherAppTests;
-			productReference = 9C3047FF269E9E2B005C9EA2 /* NewsAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -287,10 +235,6 @@
 				TargetAttributes = {
 					9C3047E8269E9E29005C9EA2 = {
 						CreatedOnToolsVersion = 12.5.1;
-					};
-					9C3047FE269E9E2B005C9EA2 = {
-						CreatedOnToolsVersion = 12.5.1;
-						TestTargetID = 9C3047E8269E9E29005C9EA2;
 					};
 				};
 			};
@@ -312,7 +256,6 @@
 			projectRoot = "";
 			targets = (
 				9C3047E8269E9E29005C9EA2 /* NewsApp */,
-				9C3047FE269E9E2B005C9EA2 /* NewsAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -324,13 +267,6 @@
 			files = (
 				9C3047F9269E9E2B005C9EA2 /* LaunchScreen.storyboard in Resources */,
 				9C3047F6269E9E2B005C9EA2 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9C3047FD269E9E2B005C9EA2 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +293,7 @@
 				9C3047ED269E9E29005C9EA2 /* AppDelegate.swift in Sources */,
 				9CC32ECF269F6C2700C1A88A /* NewsAPIError.swift in Sources */,
 				9C090B0426A6E2F900E0E231 /* LazyImageLoader.swift in Sources */,
+				9C4283682D3D3B0A0080ACAF /* SpeechRecognizer.swift in Sources */,
 				9C11464826B35D1D009099D6 /* SettingItemHeaderview.swift in Sources */,
 				9C090B0026A6908F00E0E231 /* TopHeadingViewModel.swift in Sources */,
 				9C87522E26A30064006DDA7D /* NewsFeedView.swift in Sources */,
@@ -368,23 +305,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		9C3047FB269E9E2B005C9EA2 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				9C304804269E9E2B005C9EA2 /* WeatherAppTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9C304801269E9E2B005C9EA2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 9C3047E8269E9E29005C9EA2 /* NewsApp */;
-			targetProxy = 9C304800269E9E2B005C9EA2 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9C3047F7269E9E2B005C9EA2 /* LaunchScreen.storyboard */ = {
@@ -520,15 +441,18 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2A7GLY3DP4;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siddhant.NewsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -540,59 +464,20 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 2A7GLY3DP4;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = NewsApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.siddhant.NewsApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		9C304817269E9E2B005C9EA2 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = WeatherAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.siddhant.WeatherAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewsApp.app/NewsApp";
-			};
-			name = Debug;
-		};
-		9C304818269E9E2B005C9EA2 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = WeatherAppTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.siddhant.WeatherAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewsApp.app/NewsApp";
 			};
 			name = Release;
 		};
@@ -613,15 +498,6 @@
 			buildConfigurations = (
 				9C304814269E9E2B005C9EA2 /* Debug */,
 				9C304815269E9E2B005C9EA2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		9C304816269E9E2B005C9EA2 /* Build configuration list for PBXNativeTarget "NewsAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				9C304817269E9E2B005C9EA2 /* Debug */,
-				9C304818269E9E2B005C9EA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -652,10 +528,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 9C38185E269F3C62009BE49B /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		9C381867269F6899009BE49B /* ConfigurationModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = ConfigurationModule;
 		};
 		9C4D4FD02709999600D97BE8 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

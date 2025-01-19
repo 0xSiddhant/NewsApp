@@ -15,7 +15,6 @@ final class SourceViewController: UITableViewController {
         return SourceViewModel(controller: self)
     }()
     private var dataSource: UITableViewDiffableDataSource<Int, Source>!
-    private var canReload = true
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,10 +39,12 @@ final class SourceViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if canReload {
-            viewModel.fetchAPI()
+        if UserDefaultsData.isSourceUpdateNeeded {
+            Task {
+                await viewModel.fetchAPI()
+            }
+            UserDefaultsData.isSourceUpdateNeeded = false
         }
-        canReload = true
     }
     
     //MARK:- Configuration Methods
@@ -67,14 +68,14 @@ final class SourceViewController: UITableViewController {
             present(SFSafariViewController(url: $0,
                                            configuration: config),
                     animated: true
-            ) {
-                self.canReload = false
-            }
+            )
         }
         
         viewModel.categoryType.bind { [unowned self] cat in
             if cat != nil {
-                self.viewModel.fetchAPI()
+                Task {
+                    await self.viewModel.fetchAPI()
+                }
             }
         }
         
@@ -129,7 +130,9 @@ final class SourceViewController: UITableViewController {
             image: UIImage(systemName: "pencil.and.outline")
         ) { [weak self] _ in
             self?.viewModel.categoryType.value = nil
-            self?.viewModel.fetchAPI()
+            Task {
+                await self?.viewModel.fetchAPI()
+            }
         }
         elements.append(noneCase)
         return elements

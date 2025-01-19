@@ -12,7 +12,7 @@ class SourceViewModel {
     //MARK:- Properties
     var model: SourceModel!
     /// Used to Reload the TableView Content
-    var reloadTableViewCallBack: (() -> Void)?
+    @MainActor var reloadTableViewCallBack: (() -> Void)?
     /// CallBack contains list of items which need to reload
     var reloadCellsCallBack: (([Source]) -> Void)?
     /// Return the URL of the Source website
@@ -63,7 +63,7 @@ class SourceViewModel {
     }
     
     //MARK:- API Call
-    func fetchAPI() {
+    func fetchAPI() async {
         var params = [String: Any]()
         if let cat = categoryType.value {
             params["category"] = cat.rawValue
@@ -74,19 +74,19 @@ class SourceViewModel {
         if !UserDefaultsData.language.isEmpty {
             params["language"] = UserDefaultsData.language
         }
-        NetworkManager.sharedInstance.fetchData(endPoint: .sources,
-                                                params: params,
-                                                method: .GET,
-                                                responseType: SourceModel.self,
-                                                controller: controller
-        ) { response in
-            switch response {
-            case .success(let data):
-                self.model = data
-                self.reloadTableViewCallBack?()
-            case .failure(let error):
-                debugPrint(error.showErrorMessage)
-            }
+        do {
+            await NetworkManager.sharedInstance.toggleLoaderView(true, controller: controller)
+            let data = try await NetworkManager.sharedInstance.fetchData(endPoint: .sources,
+                                                                             params: params,
+                                                                             method: .GET,
+                                                                             responseType: SourceModel.self
+            )
+            self.model = data
+            await NetworkManager.sharedInstance.toggleLoaderView(false, controller: controller)
+            await self.reloadTableViewCallBack?()
+        } catch let error  {
+            debugPrint((error as! NewsAPIError).showErrorMessage)
+            
         }
     }
 }

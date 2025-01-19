@@ -16,7 +16,9 @@ class EverythingViewModel {
     var reloadTableCallBack: (() -> Void)?
     var searchTerm: String! {
         didSet {
-            fetchData()
+            Task {
+                await fetchData()
+            }
         }
     }
     var source: String?
@@ -43,11 +45,13 @@ class EverythingViewModel {
             model.articles.count < model.totalResults &&
             !isAPICalled {
             pageNo += 1
-            fetchData()
+            Task {
+                await fetchData()
+            }
         }
     }
     
-    func fetchData() {
+    func fetchData() async {
         var params = [String: Any]()
         params["q"] = searchTerm
         params["sortBy"] = sortType.value.rawValue
@@ -61,23 +65,22 @@ class EverythingViewModel {
         }
         
         isAPICalled = true
-        NetworkManager.sharedInstance.fetchData(endPoint: .everything,
-                                                params: params,
-                                                method: .GET,
-                                                responseType: ArticleModal.self,
-                                                controller: controller
-        ) { response in
-            switch response {
-            case .success(let data):
+        do {
+            let data = try await NetworkManager.sharedInstance.fetchData(endPoint: .everything,
+                                                                         params: params,
+                                                                         method: .GET,
+                                                                         responseType: ArticleModal.self
+            )
+            await MainActor.run {
                 if self.pageNo == 1 {
                     self.model = data
                 } else {
                     self.model.articles +=  data.articles
                 }
-                self.isAPICalled = false
-            case .failure(let error):
-                debugPrint(error.showErrorMessage)
+                isAPICalled = false
             }
+        } catch let error {
+            debugPrint((error as! NewsAPIError).showErrorMessage)
         }
     }
 }

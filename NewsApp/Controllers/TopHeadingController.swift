@@ -57,7 +57,9 @@ class TopHeadingController: UITableViewController {
         tableView.refreshControl = rc
         
         initvm()
-        viewModel.fetchData()
+        Task {
+            await viewModel.fetchData()            
+        }
     }
     
     private func initvm() {
@@ -68,7 +70,9 @@ class TopHeadingController: UITableViewController {
         
         viewModel.categoryType.bind { [unowned self] cat in
             if cat != nil {
-                self.viewModel.fetchData()
+                Task {
+                    await self.viewModel.fetchData()
+                }
             }
         }
     }
@@ -89,7 +93,9 @@ class TopHeadingController: UITableViewController {
             image: UIImage(systemName: "pencil.and.outline")
         ) { [weak self] _ in
             self?.viewModel.categoryType.value = nil
-            self?.viewModel.fetchData()
+            Task {
+                await self?.viewModel.fetchData()
+            }
         }
         elements.append(noneCase)
         return elements
@@ -98,7 +104,9 @@ class TopHeadingController: UITableViewController {
     //MARK:- OBJC Methods
     @objc
     func refreshTableView() {
-        viewModel.fetchData()
+        Task {
+            await viewModel.fetchData()
+        }
     }
     
     @objc
@@ -107,7 +115,10 @@ class TopHeadingController: UITableViewController {
         vc.modalPresentationStyle = .overFullScreen
         vc.modalTransitionStyle = .flipHorizontal
         vc.selectionCallBack = { [weak self] in
-            self?.viewModel.fetchData()
+            UserDefaultsData.isSourceUpdateNeeded = true
+            Task {
+                await self?.viewModel.fetchData()
+            }
         }
         present(vc,
                 animated: true,

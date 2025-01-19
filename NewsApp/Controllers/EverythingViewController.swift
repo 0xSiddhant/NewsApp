@@ -7,7 +7,6 @@
 
 import UIKit
 import SafariServices
-import Speech
 
 final class EverythingViewController: UITableViewController {
     //MARK: - Properties
@@ -29,22 +28,6 @@ final class EverythingViewController: UITableViewController {
     private var dataSource: UITableViewDiffableDataSource<Int, Article>!
     var sourceID: String?
     var sourceName: String?
-    
-    //MARK: Speech Recog. Variables
-    let audioEngine = AVAudioEngine()
-    let speechRecognizer: SFSpeechRecognizer? = SFSpeechRecognizer()
-    let request = SFSpeechAudioBufferRecognitionRequest()
-    var recognitionTask: SFSpeechRecognitionTask?
-    var isStartRecording: Bool = false {
-        didSet {
-            if isStartRecording {
-                recordAndRecognizeSpeech()
-            } else {
-                cancelRecording()
-            }
-        }
-    }
-    
     
     //MARK: - View LifeCycle Methods
     override func viewDidLoad() {
@@ -89,86 +72,9 @@ final class EverythingViewController: UITableViewController {
     
     @objc
     func voiceSearchBtnAction() {
-        if isStartRecording {
-            isStartRecording = false
-        } else {
-            requestSpeechAuthorization()
+        SpeechRecognizer.shared.processAudio { [weak self] lastString in
+            self?.seachController.searchBar.text = lastString
         }
-    }
-    
-    //MARK: - Check Authorization Status
-    func requestSpeechAuthorization() {
-        SFSpeechRecognizer.requestAuthorization { authStatus in
-            OperationQueue.main.addOperation {
-                switch authStatus {
-                case .authorized:
-                    self.isStartRecording = true
-                case .denied:
-                    self.sendAlert(title: "User denied access to speech recognition", message: "")
-                case .restricted:
-                    self.sendAlert(title: "Speech recognition restricted on this device", message: "")
-                case .notDetermined:
-                    self.sendAlert(title: "Speech recognition not yet authorized", message: "")
-                @unknown default:
-                    return
-                }
-            }
-        }
-    }
-    
-    func recordAndRecognizeSpeech() {
-        let node = audioEngine.inputNode
-        let recordingFormat = node.outputFormat(forBus: 0)
-        node.installTap(onBus: 0, bufferSize: 1024, format: recordingFormat) { buffer, _ in
-            self.request.append(buffer)
-        }
-        audioEngine.prepare()
-        do {
-            try audioEngine.start()
-        } catch {
-            sendAlert(title: "Speech Recognizer Error", message: "There has been an audio engine error.")
-            return print(error)
-        }
-        guard let myRecognizer = SFSpeechRecognizer() else {
-            sendAlert(title: "Speech Recognizer Error", message: "Speech recognition is not supported for your current locale.")
-            return
-        }
-        if !myRecognizer.isAvailable {
-            sendAlert(title: "Speech Recognizer Error", message: "Speech recognition is not currently available. Check back at a later time.")
-            // Recognizer is not available right now
-            return
-        }
-        recognitionTask = speechRecognizer?.recognitionTask(with: request, resultHandler: { result, error in
-            if let result = result {
-                
-                let bestString = result.bestTranscription.formattedString
-                var lastString: String = ""
-                for segment in result.bestTranscription.segments {
-                    let indexTo = bestString.index(bestString.startIndex, offsetBy: segment.substringRange.location)
-                    lastString = String(bestString[indexTo...])
-                }
-                self.seachController.searchBar.text = lastString
-            }
-//            else if let error = error {
-//                self.sendAlert(title: "Speech Recognizer Error", message: "There has been a speech recognition error.")
-//                print(error)
-//            }
-        })
-    }
-    func cancelRecording() {
-        recognitionTask?.finish()
-        recognitionTask = nil
-        
-        // stop audio
-        request.endAudio()
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
-    }
-    
-    func sendAlert(title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: - Configuration Methods
@@ -180,7 +86,9 @@ final class EverythingViewController: UITableViewController {
         viewModel.sortType.bind { [unowned self] _ in
             if let query = self.viewModel.searchTerm,
                !query.isEmpty {
-                self.viewModel.fetchData()
+                Task {
+                    await self.viewModel.fetchData()
+                }
             }
         }
     }
@@ -248,8 +156,6 @@ extension EverythingViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         viewModel.searchTerm = searchBar.text ?? ""
-        if isStartRecording {
-            isStartRecording = false
-        }
+        SpeechRecognizer.shared.cancelRecording()
     }
 }

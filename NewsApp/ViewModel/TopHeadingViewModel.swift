@@ -51,11 +51,13 @@ class TopHeadingViewModel {
             model.articles.count < model.totalResults &&
             !isAPICalled {
             pageNo += 1
-            fetchData()
+            Task {
+                await fetchData()
+            }
         }
     }
     //MARK:- API Calls
-    func fetchData() {
+    func fetchData() async {
         var params = [String: Any]()
         if !UserDefaultsData.country.isEmpty {
             params["country"] = UserDefaultsData.country
@@ -68,23 +70,26 @@ class TopHeadingViewModel {
         params["pageSize"] = pageSize
         params["page"] = pageNo
         isAPICalled = true
-        NetworkManager.sharedInstance.fetchData(endPoint: .headlines,
-                                                params: params,
-                                                method: .GET,
-                                                responseType: ArticleModal.self,
-                                                controller: controller
-        ) { response in
-            switch response {
-            case .success(let data):
+        
+        do {
+            await NetworkManager.sharedInstance.toggleLoaderView(true, controller: controller)
+            let response = try await NetworkManager.sharedInstance.fetchData(endPoint: .headlines,
+                                                                             params: params,
+                                                                             method: .GET,
+                                                                             responseType: ArticleModal.self
+            )
+            await MainActor.run {
+                NetworkManager.sharedInstance.toggleLoaderView(false, controller: controller)
                 if self.pageNo == 1 {
-                    self.model = data
+                    self.model = response
                 } else {
-                    self.model.articles +=  data.articles
+                    self.model.articles +=  response.articles
                 }
                 self.isAPICalled = false
-            case .failure(let error):
-                debugPrint(error.showErrorMessage)
             }
+        } catch let error {
+            debugPrint(error)
         }
+        
     }
 }
