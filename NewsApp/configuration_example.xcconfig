@@ -1,0 +1,4 @@
+
+TRANSPORT_PROTOCOL_TYPE = https:
+BASE_URL = newsapi.org
+API_KEY = // ENTER YOUR API KEY HERE

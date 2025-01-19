@@ -45,11 +45,11 @@ class NetworkManager {
                    responseType: T.Type,
                    completion: @escaping ((Result<T, NewsAPIError>) -> Void)) {
         
-        let fullyQualifiedURL = "https://newsapi.org" + endPoint.rawValue
+        let fullyQualifiedURL = "\(BuildConfiguration.shared.transportProtocolType)//\(BuildConfiguration.shared.baseURL)" + endPoint.rawValue
         
         var finalParam = [String: Any]()
         finalParam = params
-        finalParam["apiKey"] = "___ API KEY ___"
+        finalParam["apiKey"] = BuildConfiguration.shared.apiKey
         
         debugPrint(fullyQualifiedURL)
         debugPrint(finalParam)

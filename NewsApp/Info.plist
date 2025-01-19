@@ -44,9 +44,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-    <key>NSSpeechRecognitionUsageDescription</key>
-    <string>Speak and search news related to the word which you speak.</string>
-    <key>NSMicrophoneUsageDescription</key>
-    <string>Your speech will be detected after tapping the mic button.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Speak and search news related to the word which you speak.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Your speech will be detected after tapping the mic button.</string>
+	<key>TRANSPORT_PROTOCOL_TYPE</key>
+	<string>$(TRANSPORT_PROTOCOL_TYPE)</string>
+	<key>BASE_URL</key>
+	<string>$(BASE_URL)</string>
+	<key>API_KEY</key>
+	<string>$(API_KEY)</string>
 </dict>
 </plist>
