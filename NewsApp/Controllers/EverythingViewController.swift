@@ -15,9 +15,7 @@ final class EverythingViewController: UITableViewController {
         sc.searchBar.delegate = self
         return sc
     }()
-    lazy var viewModel: EverythingViewModel = {
-        return EverythingViewModel(controller: self)
-    }()
+    let viewModel: EverythingViewModel
     lazy var voiceSearchBarBtn: UIBarButtonItem = {
         let btn = UIBarButtonItem()
         btn.image = UIImage(systemName: "mic.circle.fill")
@@ -29,12 +27,20 @@ final class EverythingViewController: UITableViewController {
     var sourceID: String?
     var sourceName: String?
     
+    init(viewModel: EverythingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     //MARK: - View LifeCycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.searchController = seachController
-        navigationController?.navigationBar.prefersLargeTitles = true
         
         if #available(iOS 14.0, *) {
             navigationItem.rightBarButtonItems = [.init(systemItem: .action), voiceSearchBarBtn]
@@ -137,17 +143,7 @@ final class EverythingViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let snapshot = dataSource.snapshot()
         
-        guard let urlString = snapshot.itemIdentifiers[indexPath.row].url,
-              let url = URL(string: urlString) else { return }
-        
-        let config = SFSafariViewController.Configuration()
-        config.barCollapsingEnabled = true
-        config.entersReaderIfAvailable = true
-        
-        present(SFSafariViewController(url: url,
-                                       configuration: config),
-                animated: true,
-                completion: nil)
+        viewModel.openNews(of: snapshot.itemIdentifiers[indexPath.row].url)
     }
 }
 

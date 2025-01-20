@@ -9,9 +9,20 @@ import UIKit
 
 final class TabBarController: UITabBarController {
 
-    let firstController = UINavigationController(rootViewController: EverythingViewController())
-    let secondController = UINavigationController(rootViewController: TopHeadingController())
-    let thirdController = UINavigationController(rootViewController: SourceViewController())
+    var firstController: UIViewController
+    var secondController: UIViewController
+    var thirdController: UIViewController
+    
+    init(_ firstController: UIViewController, _ secondController: UIViewController, _ thirdController: UIViewController) {
+        self.firstController = firstController
+        self.secondController = secondController
+        self.thirdController = thirdController
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

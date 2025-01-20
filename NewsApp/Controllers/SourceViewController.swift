@@ -11,10 +11,18 @@ import SafariServices
 final class SourceViewController: UITableViewController {
     
     //MARK:- Properties
-    lazy var viewModel: SourceViewModel = {
-        return SourceViewModel(controller: self)
-    }()
+    let viewModel: SourceViewModel
     private var dataSource: UITableViewDiffableDataSource<Int, Source>!
+    
+    init(viewModel: SourceViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,6 +44,7 @@ final class SourceViewController: UITableViewController {
         
         createDataSource()
         initializeViewModel()
+        UserDefaultsData.isSourceUpdateNeeded = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,17 +67,6 @@ final class SourceViewController: UITableViewController {
             snapShot.reloadItems($0)
             dataSource.apply(snapShot,
                              animatingDifferences: true)
-        }
-        
-        viewModel.openBrowserCallBack = { [unowned self] in
-            let config = SFSafariViewController.Configuration()
-            config.barCollapsingEnabled = true
-            config.entersReaderIfAvailable = false
-            
-            present(SFSafariViewController(url: $0,
-                                           configuration: config),
-                    animated: true
-            )
         }
         
         viewModel.categoryType.bind { [unowned self] cat in

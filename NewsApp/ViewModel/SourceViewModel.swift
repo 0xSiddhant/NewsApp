@@ -15,8 +15,7 @@ class SourceViewModel {
     @MainActor var reloadTableViewCallBack: (() -> Void)?
     /// CallBack contains list of items which need to reload
     var reloadCellsCallBack: (([Source]) -> Void)?
-    /// Return the URL of the Source website
-    var openBrowserCallBack: ((URL) -> Void)?
+    var openNewsHomePageCallBack: ((URL) -> Void)
     /// Returns the list of available sources
     var getSourceList: [Source] {
         return model.sources
@@ -26,9 +25,8 @@ class SourceViewModel {
     
     var categoryType: Box<Categories?> = Box(nil)
     
-    weak var controller: UIViewController?
-    init(controller: UIViewController) {
-        self.controller = controller
+    init(_ openNewsHomePageCallBack: @escaping (URL) -> Void) {
+        self.openNewsHomePageCallBack = openNewsHomePageCallBack
     }
     
     //MARK:- Methods
@@ -49,9 +47,10 @@ class SourceViewModel {
         reloadCellsCallBack?(tempSourceList)
     }
     
-    /// Returns the valid URL of the source if available else return nil
-    func getSelectedNewsLink(of indx: Int) -> URL? {
-        return URL(string: model.sources[indx].url)
+    /// Opens the valid URL of the source if available
+    func openSelectedNewsLink(of indx: Int) {
+        guard let url = URL(string: model.sources[indx].url) else { return }
+        openNewsHomePageCallBack(url)
     }
     
     func setSourceID(of indx: Int) {
@@ -75,14 +74,14 @@ class SourceViewModel {
             params["language"] = UserDefaultsData.language
         }
         do {
-            await NetworkManager.sharedInstance.toggleLoaderView(true, controller: controller)
+            await NetworkManager.sharedInstance.toggleLoaderView(true)
             let data = try await NetworkManager.sharedInstance.fetchData(endPoint: .sources,
                                                                              params: params,
                                                                              method: .GET,
                                                                              responseType: SourceModel.self
             )
             self.model = data
-            await NetworkManager.sharedInstance.toggleLoaderView(false, controller: controller)
+            await NetworkManager.sharedInstance.toggleLoaderView(false)
             await self.reloadTableViewCallBack?()
         } catch let error  {
             debugPrint((error as! NewsAPIError).showErrorMessage)

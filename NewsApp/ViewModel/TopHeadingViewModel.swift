@@ -12,23 +12,32 @@ class TopHeadingViewModel {
     //MARK:- Properties
     var reloadTableCallBack: (() -> Void)?
     private let pageSize = 40
-    private var pageNo = 1
-    private var isAPICalled = false
+    private var pageNo: Int
+    private var isAPICalled: Bool
     private var model: ArticleModal! {
         didSet {
             reloadTableCallBack?()
         }
     }
-    var categoryType: Box<Categories?> = Box(nil)
+    var categoryType: Box<Categories?>
+    
+    private var openSettingCallBack: (SettingPageController) -> Void
+    private var openSafariPage: ((URL) -> Void)
+    
+    init(
+        openSettingCallBack: @escaping (SettingPageController) -> Void,
+        openSafariPage: @escaping ((URL) -> Void)
+    ) {
+        self.pageNo = 1
+        self.isAPICalled = false
+        self.categoryType = Box(nil)
+        self.openSettingCallBack = openSettingCallBack
+        self.openSafariPage = openSafariPage
+    }
     
     var noOfRows: Int {
         if model == nil { return 0}
         return model.articles.count
-    }
-    
-    weak var controller: UIViewController?
-    init(controller: UIViewController) {
-        self.controller = controller
     }
     
     deinit {
@@ -39,11 +48,12 @@ class TopHeadingViewModel {
         return model.articles[indexPath.row]
     }
     
-    func getSelectedNewsLink(of indexPath: IndexPath) -> URL? {
-        if let urlString =  model.articles[indexPath.row].url {
-            return URL(string: urlString)
+    func openSelectedNewsLink(of indexPath: IndexPath) {
+        guard let urlString =  model.articles[indexPath.row].url,
+              let url = URL(string: urlString) else {
+            return
         }
-        return nil
+        openSafariPage(url)
     }
     
     func canApplyPagination(_ index: Int) {
@@ -72,14 +82,14 @@ class TopHeadingViewModel {
         isAPICalled = true
         
         do {
-            await NetworkManager.sharedInstance.toggleLoaderView(true, controller: controller)
+            await NetworkManager.sharedInstance.toggleLoaderView(true)
             let response = try await NetworkManager.sharedInstance.fetchData(endPoint: .headlines,
                                                                              params: params,
                                                                              method: .GET,
                                                                              responseType: ArticleModal.self
             )
             await MainActor.run {
-                NetworkManager.sharedInstance.toggleLoaderView(false, controller: controller)
+                NetworkManager.sharedInstance.toggleLoaderView(false)
                 if self.pageNo == 1 {
                     self.model = response
                 } else {
@@ -91,5 +101,16 @@ class TopHeadingViewModel {
             debugPrint(error)
         }
         
+    }
+    
+    func openSettingPage() {
+        let vc = SettingPageController()
+        vc.selectionCallBack = {
+            UserDefaultsData.isSourceUpdateNeeded = true
+            Task {
+                await self.fetchData()
+            }
+        }
+        openSettingCallBack(vc)
     }
 }

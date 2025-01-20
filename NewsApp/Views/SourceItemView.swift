@@ -160,9 +160,7 @@ class SourceItemView: UITableViewCell {
     //MARK:- Objc Methods
     @objc
     func visitBtnClicked() {
-        if let url = viewModel.getSelectedNewsLink(of: tag) {
-            viewModel.openBrowserCallBack?(url)
-        }
+        viewModel.openSelectedNewsLink(of: tag)
     }
     
     @objc

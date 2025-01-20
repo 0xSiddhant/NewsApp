@@ -95,8 +95,8 @@ class NetworkManager {
             }
     }
     
-    @MainActor func toggleLoaderView(_ show: Bool, controller: UIViewController?) {
-        guard let controller = controller else {
+    @MainActor func toggleLoaderView(_ show: Bool) {
+        guard let controller = UIApplication.shared.windows.filter({$0.isKeyWindow}).first?.rootViewController else {
             return
         }
         controller.view.isUserInteractionEnabled = !show

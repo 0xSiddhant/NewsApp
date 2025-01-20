@@ -1,5 +1,5 @@
 //
-//  EverythingViewController.swift
+//  EverythingViewModel.swift
 //  NewsApp
 //
 //  Created by Siddhant Kumar on 26/07/21.
@@ -31,10 +31,10 @@ class EverythingViewModel {
         if model == nil { return [] }
         return model.articles
     }
+    var safariCallBack: ((URL) -> Void)
     
-    weak var controller: UIViewController?
-    init(controller: UIViewController) {
-        self.controller = controller
+    init(safariCallBack: @escaping (URL) -> Void) {
+        self.safariCallBack = safariCallBack
     }
     
     func clearData() {
@@ -82,5 +82,11 @@ class EverythingViewModel {
         } catch let error {
             debugPrint((error as! NewsAPIError).showErrorMessage)
         }
+    }
+    
+    func openNews(of urlString: String?) {
+        guard let urlString = urlString,
+              let url = URL(string: urlString) else { return }
+        safariCallBack(url)
     }
 }

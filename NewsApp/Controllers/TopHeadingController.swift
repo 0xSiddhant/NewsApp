@@ -10,10 +10,7 @@ import SafariServices
 
 class TopHeadingController: UITableViewController {
     
-    lazy var viewModel: TopHeadingViewModel = {
-        let vm = TopHeadingViewModel(controller: self)
-        return vm
-    }()
+    let viewModel: TopHeadingViewModel
     
     lazy var rc: UIRefreshControl = {
         let rc = UIRefreshControl()
@@ -31,16 +28,22 @@ class TopHeadingController: UITableViewController {
         return barBtn
     }()
     
+    init(viewModel: TopHeadingViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     deinit {
         debugPrint(#file)
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Top Heading"
         navigationItem.leftBarButtonItem = settingBarBtn
         
@@ -111,19 +114,7 @@ class TopHeadingController: UITableViewController {
     
     @objc
     func showSettingPage() {
-        let vc = SettingPageController()
-        vc.modalPresentationStyle = .overFullScreen
-        vc.modalTransitionStyle = .flipHorizontal
-        vc.selectionCallBack = { [weak self] in
-            UserDefaultsData.isSourceUpdateNeeded = true
-            Task {
-                await self?.viewModel.fetchData()
-            }
-        }
-        present(vc,
-                animated: true,
-                completion: nil)
-        
+        viewModel.openSettingPage()
     }
 }
 
@@ -144,16 +135,7 @@ extension TopHeadingController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let url = viewModel.getSelectedNewsLink(of: indexPath) else { return }
-        
-        let config = SFSafariViewController.Configuration()
-        config.barCollapsingEnabled = true
-        config.entersReaderIfAvailable = true
-        
-        present(SFSafariViewController(url: url,
-                                       configuration: config),
-                animated: true,
-                completion: nil)
+        viewModel.openSelectedNewsLink(of: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
